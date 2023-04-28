@@ -5,8 +5,9 @@
 #include <cstdint>
 #include <optional>
 #include <unistd.h>
-#include <sys/malloc.h>
+#include <malloc.h>
 #include <sys/mman.h>
+#include <stdlib.h>
 
 #include "libsaferead.h"
 
@@ -30,7 +31,7 @@ void read_protected_memory()
     auto page_size = sysconf(_SC_PAGESIZE);
     char* buffer;
 
-    size_t num_of_pages = 4;
+    int num_of_pages = 4;
 
     posix_memalign((void**)&buffer, page_size, num_of_pages * page_size);
 
@@ -53,4 +54,5 @@ int main() {
     read_existing_address();
     read_nullptr();
     read_protected_memory();
+    printf("Success\n");
 }
